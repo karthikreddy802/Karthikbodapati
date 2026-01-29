@@ -1,0 +1,128 @@
+VERSION CONTROL SOFTWARE
+
+Examples: GitHub, Bitbucket
+
+Why Version Control?
+
+In real projects:
+
+* Multiple developers work on the same project
+* They work from different locations and different laptops
+
+This creates problems:
+
+1. How to integrate everyone’s code?
+2. How to track changes?
+
+   * Who changed it?
+   * When?
+   * What was changed?
+   * Why it was changed?
+
+To solve these issues, we use Version Control Software.
+
+What is GitHub?
+
+GitHub is a cloud-based platform.
+It is used to store, manage, and track source code.
+It hosts Git repositories.
+For every project, we create one repository.
+It provides centralized code storage, access control, change tracking, and collaboration between developers.
+
+All developers push their code to one common place.
+
+Environment Setup
+
+1. Create a GitHub account
+   [https://www.github.com](https://www.github.com)
+
+2. Download and install Git
+   [https://git-scm.com/downloads](https://git-scm.com/downloads)
+
+Git Bash comes with Git.
+
+3. Configure your name and email
+
+Open Git Bash and run:
+
+git config --global user.name "karthik"
+git config --global user.email "[karthikreddybodapati@gmail.com](mailto:karthikreddybodapati@gmail.com)"
+
+Check configuration:
+
+git config --list
+
+Git Architecture
+
+Git has four main areas:
+
+1. Working Tree – where you write and edit files
+2. Staging Area – where you prepare files before saving
+3. Local Repository – stored on your laptop
+4. Central Repository – GitHub (cloud)
+
+Git Workflow (Structure Flow)
+
+Working Tree → Staging Area → Local Repository → Central Repository
+git init → git add → git commit → git push
+
+Important commands:
+
+git init → Create repository
+git status → Check file status
+git add → Move files to staging
+git commit → Save changes locally
+git log → View commit history
+git push → Send code to GitHub
+
+First Time Git Push
+
+When you run git push for the first time:
+
+Git will ask for GitHub username and password or token.
+Credentials are saved in Windows Credential Manager.
+To use a different GitHub account, open Credential Manager and remove GitHub credentials.
+
+Practical: Git Repository
+
+Step 1: Create a repository on GitHub
+Public or Private
+Copy the repository URL
+
+Step 2: Open Git Bash and run commands
+
+git init
+git remote add origin <repo-url>
+
+Copy project files into the folder.
+
+Step 3: Push code
+
+git status
+git add .
+git commit -m "First commit"
+git push -u origin main
+
+Notes
+
+Git Bash is a client tool to work with GitHub.
+All developers push code to the same central repository.
+Git keeps full history of who changed, what changed, when it changed, and why it changed.
+----------------------
+gitinit - to initialize working tree
+gitstatus - to check the staging area status
+git add - to add files to the staging area
+git add.- to add multiple files to the staging area
+git commit - send files from the staging area to the local repository.
+git log - to check the history
+git push - send files from the local repository to the central repository
+git restore - to restore the staging files to the working tree and revert the changes back
+git config - to configure username and email id.
+git clone - to download the central repository to the local repo
+git pull - in order to bring the global repo change to the local repo
+git fetch- 
+git merge<branch-name> - it will merge changes from one branch to another branch and it will preserve commit history
+git rebase<branch-name>- it will merge changes from one branch to another branch and it will not preserve commit history
+git rm - in order to delete the file from the repo
+git clone-b <branch-name><repo-url> - to clone the repo from the selected branch
+
