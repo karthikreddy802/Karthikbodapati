@@ -1,1 +1,4 @@
 HI I AM KARTHIK.
+
+
+print("hello world");
