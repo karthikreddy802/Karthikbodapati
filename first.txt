@@ -2,3 +2,7 @@ HI I AM KARTHIK.
 
 
 print("hello world");
+
+story 1
+
+hi i am going to college
