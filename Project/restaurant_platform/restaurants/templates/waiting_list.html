@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">⏳ Waiting List Management</h2>
+
+    <!-- Summary Card -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center p-3">
+                <h6>Customers in Queue</h6>
+                <h3 id="waitingCount" class="text-danger">{{ waiting_count }}</h3>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Waiting Table -->
+    <div class="card shadow-sm p-3">
+
+        <h5 class="mb-3">Current Queue</h5>
+
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Token</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Guests</th>
+                    <th>Joined At</th>
+                    <th>Estimated Wait</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="waitingTableBody">
+
+                {% for customer in waiting_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.guests }}</td>
+                    <td>{{ customer.created_at|date:"h:i A" }}</td>
+                    <td>
+                        <a href="{% url 'mark_seated' customer.id %}" 
+                           class="btn btn-success btn-sm">
+                           Seat
+                        </a>
+                        <a href="{% url 'remove_waiting' customer.id %}" 
+                           class="btn btn-danger btn-sm">
+                           Remove
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">
+                        No customers in waiting list.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<script>
+function fetchWaitingData() {
+    fetch("{% url 'waiting_data' restaurant.id %}")
+        .then(response => response.json())
+        .then(data => {
+
+            document.getElementById("waitingCount").innerText = data.waiting_count;
+
+            let tableBody = document.getElementById("waitingTableBody");
+            tableBody.innerHTML = "";
+
+            data.customers.forEach((customer, index) => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.phone}</td>
+                        <td>${customer.guests}</td>
+                        <td>${customer.estimated_wait} mins</td>
+
+                        <td>
+                            <a href="/waiting/${customer.id}/seat/" class="btn btn-success btn-sm">Seat</a>
+                            <a href="/waiting/${customer.id}/remove/" class="btn btn-danger btn-sm">Remove</a>
+                        </td>
+                    </tr>
+                `;
+            });
+
+        });
+}
+
+setInterval(fetchWaitingData, 5000);
+fetchWaitingData();
+</script>
+
+{% endblock %}

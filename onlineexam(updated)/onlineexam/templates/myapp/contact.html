@@ -1,0 +1,107 @@
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<style>
+.contact-hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d")
+                no-repeat center center/cover;
+    height: 40vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-section {
+    padding: 60px 0;
+}
+
+.contact-card {
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.map-container iframe {
+    border-radius: 15px;
+    width: 100%;
+    height: 350px;
+}
+</style>
+
+<!-- HERO -->
+<div class="contact-hero">
+    <div>
+        <h1>Contact Us</h1>
+        <p>We are here to help you 24/7</p>
+    </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<div class="container contact-section">
+    <div class="row">
+
+        <!-- Contact Form -->
+        <div class="col-md-6">
+            <div class="contact-card bg-light">
+                <h4 class="mb-4">Send Us a Message</h4>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+
+                    <button class="btn btn-primary w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Institute Details -->
+        <div class="col-md-6">
+            <div class="contact-card bg-white">
+                <h4 class="mb-4">Institute Information</h4>
+
+                <p><strong>🏫 Institute:</strong> SSSIT Institute</p>
+                <p><strong>📍 Location:</strong> KPHB, Hyderabad, Telangana</p>
+                <p><strong>📞 Phone:</strong> +91 9876543210</p>
+                <p><strong>📧 Email:</strong> info@sssitinstitute.com</p>
+                <p><strong>🕒 Working Hours:</strong> Mon - Sat (9:00 AM - 7:00 PM)</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Google Map -->
+    <div class="row mt-5">
+        <div class="col-md-12 map-container">
+            <iframe
+                src="https://maps.google.com/maps?q=SSIT%20Institute%20KPHB%20Hyderabad&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                allowfullscreen="">
+            </iframe>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center p-3">
+    © 2026 Online Exam Portal | SSSIT Institute - KPHB
+</footer>
+
+{% endblock %}

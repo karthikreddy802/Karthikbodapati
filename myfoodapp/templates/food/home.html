@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{%extends 'food/base.html'%}
+{% load static %}
+{%block content_block%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold text-warning" href="#">
+            
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand d-flex align-items-center" href="#">
+    
+    <img src="{% static 'images/logo.jpeg' %}" 
+         width="60"
+         height="60"
+         class="me-3 rounded-circle">
+
+    <span class="fw-bold fs-3">
+        <span class="text-warning fst-italic">Cosy</span>
+        <span class="text-light">Kitchen</span>
+    </span>
+
+</a>
+
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav text-center">
+                <li class="nav-item">
+                    <a class="nav-link active text-white fw-semibold ms-2" href="{% url 'menu' %}">Menu</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white fw-semibold ms-2 " href="#">Tables</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-white fw-semibold ms-2" href="#">Booking</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-white fw-semibold ms-2" href="{% url 'story' %}">
+                         My Story
+                       </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-white fw-semibold ms-2" href="{% url 'cafe' %}">Cafe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-semibold ms-2" href="/register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-semibold ms-2" href="{% url 'cart_items' %}">Cart Items</a>
+                </li>
+                
+                
+    
+            </ul>
+        </div>
+
+        <a href="/login" class="btn btn-warning rounded-pill fw-semibold d-none d-lg-block">
+            Login/SignUp
+        </a>
+
+    </div>
+</nav>
+<div class="container-fluid p-0 position-relative">
+    
+    <img src="https://images.unsplash.com/photo-1667388969250-1c7220bf3f37?q=80&w=1210&auto=format&fit=crop"
+         class="img-fluid w-100"
+         style="height: 100vh; object-fit: cover;">
+    <div class="position-absolute top-0 start-0 w-100 h-100"
+         style="background: rgba(0,0,0,0.5);">
+    </div>
+
+    <div class="position-absolute top-50 start-50 translate-middle text-center text-white px-3">
+        
+        <h2 class="fw-bold display-4 mb-3">
+            Welcome to <br><span class="text-warning">Cosy Kitchen</span>
+        </h2>
+
+        <p class="lead mb-4">
+            Fresh. Authentic. Made with Love.
+        </p>
+
+        <div class="bg-transparent border-light text-white shadow-lg rounded-4 p-4">
+            
+                <p class="fs-5">
+                    We serve fresh and high-quality food prepared by expert chefs 
+                    who are passionate about creating unforgettable flavors.Every dish is thoughtfully crafted using carefully selected ingredients 
+                    to ensure the perfect balance of taste, nutrition, and authenticity.
+                    Step into Cosy Kitchen and enjoy a warm dining experience 
+                    that feels just like home.
+                </p>
+            
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light d-flex align-items-center justify-content-center vh-100">
+
+<div class="card shadow-lg p-5" style="width: 450px; border-radius: 20px;">
+
+    <h2 class="text-center mb-4 fw-bold">Customer Login</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Username</label>
+            <input type="text" name="username" class="form-control form-control-lg" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Password</label>
+            <input type="password" name="password" class="form-control form-control-lg" required>
+        </div>
+
+        <button type="submit" class="btn btn-warning w-100 py-2 fw-bold">
+            Login as Customer
+        </button>
+    </form>
+
+    <div class="text-center mt-4">
+        <p class="mb-2">Don't have an account?</p>
+        <a href="{% url 'customer_signup' %}" class="btn btn-outline-primary w-100 py-2 fw-bold">
+            Register as Customer
+        </a>
+    </div>
+
+    <div class="text-center mt-3">
+        <small class="text-muted">
+            Restaurant owner?
+            <a href="{% url 'restaurant_owner_login' %}">Restaurant Owner Login</a>
+        </small>
+    </div>
+
+</div>
+
+</body>
+</html>

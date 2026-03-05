@@ -1,0 +1,128 @@
+{% extends 'food/base.html' %}
+{% load static %}
+
+{% block content_block %}
+
+<!-- Hero Section -->
+<div class="container-fluid p-0 position-relative mb-5">
+    <div style="
+        height: 55vh;
+        background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4')
+        center/cover no-repeat;">
+    </div>
+
+    <div class="position-absolute top-0 start-0 w-100 h-100"
+         style="background: rgba(0,0,0,0.65);">
+    </div>
+
+    <div class="position-absolute top-50 start-50 translate-middle text-center text-white px-3">
+        <h1 class="fw-bold display-4">Our Story</h1>
+        <p class="lead">
+            From a humble idea to a place you call home
+        </p>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="container mb-5">
+    <div class="row align-items-center g-5">
+
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-3">The Beginning</h2>
+            <p class="text-muted">
+                Cosy Kitchen was founded with a simple vision — to create a space
+                where people could relax, connect, and enjoy food that feels like home.
+                What started as a small café soon grew into a beloved neighborhood restaurant.
+            </p>
+
+            <p class="text-muted">
+                Inspired by traditional recipes and modern culinary techniques,
+                our journey has always been guided by passion, quality, and authenticity.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+                 class="img-fluid rounded-4 shadow">
+        </div>
+
+    </div>
+</div>
+
+<!-- Philosophy Section -->
+<div class="container mb-5">
+    <div class="row text-center">
+
+        <div class="col-md-4">
+            <h4 class="fw-bold">🍃 Fresh Ingredients</h4>
+            <p class="text-muted">
+                We source fresh, high-quality ingredients daily to ensure
+                every dish meets our highest standards.
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h4 class="fw-bold">👨‍🍳 Crafted with Care</h4>
+            <p class="text-muted">
+                Our chefs put heart and skill into every recipe,
+                balancing flavors to create memorable experiences.
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h4 class="fw-bold">☕ Warm Hospitality</h4>
+            <p class="text-muted">
+                From the moment you walk in, we strive to make you feel welcomed,
+                valued, and comfortable.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Experience Section -->
+<div class="container mb-5">
+    <div class="row align-items-center g-5">
+
+        <div class="col-md-6 order-md-2">
+            <h2 class="fw-bold mb-3">The Cosy Experience</h2>
+            <p class="text-muted">
+                At Cosy Kitchen, dining is more than just a meal —
+                it’s an experience. Our café offers a calm atmosphere,
+                perfect for conversations, celebrations, or quiet moments.
+            </p>
+
+            <p class="text-muted">
+                Whether you’re enjoying a handcrafted coffee,
+                a freshly baked dessert, or a full-course meal,
+                every visit is designed to leave you satisfied and smiling.
+            </p>
+        </div>
+
+        <div class="col-md-6 order-md-1">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de"
+                 class="img-fluid rounded-4 shadow">
+        </div>
+
+    </div>
+</div>
+
+<!-- Vision Section -->
+<div class="container mb-5 text-center">
+    <h2 class="fw-bold mb-3">Our Vision</h2>
+    <p class="text-muted">
+        To be a place where great food, warm conversations,
+        and lasting memories come together.
+        We believe food has the power to bring people closer,
+        and we are honored to be part of your moments.
+    </p>
+</div>
+
+<!-- Closing Note -->
+<div class="container text-center text-muted mb-4">
+    <small>
+        Thank you for choosing Cosy Kitchen — where every meal tells a story ❤️
+    </small>
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Tables - {{ restaurant.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">🪑 Manage Tables</h2>
+        <a href="{% url 'restaurant_dashboard' restaurant.id %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+    </div>
+    <p class="text-muted">Tables shown here appear on the <strong>live table map</strong> when customers book. Add or remove tables as per your floor plan.</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h5 class="mb-3">Add table</h5>
+        <form method="POST" class="row g-2 align-items-end">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add">
+            <div class="col-auto">
+                <label class="form-label small mb-0">Table number</label>
+                <input type="number" name="table_number" class="form-control" min="1" placeholder="e.g. 1" required>
+            </div>
+            <div class="col-auto">
+                <label class="form-label small mb-0">Capacity (guests)</label>
+                <input type="number" name="capacity" class="form-control" value="4" min="1" max="20">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Add table</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card shadow-sm p-4">
+        <h5 class="mb-3">Current tables ({{ tables.count }})</h5>
+        {% if tables %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Table #</th>
+                            <th>Capacity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in tables %}
+                            <tr>
+                                <td>{{ t.table_number }}</td>
+                                <td>{{ t.capacity }} guests</td>
+                                <td>
+                                    <form method="POST" class="d-inline" onsubmit="return confirm('Remove this table?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="table_id" value="{{ t.id }}">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">No tables yet. Add one above, or they will be auto-created when a customer opens the book-table map.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

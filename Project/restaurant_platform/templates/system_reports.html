@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="mb-4">📊 System Reports</h2>
+
+    <div class="card p-4 shadow">
+        <p>Total Revenue: ₹ {{ total_revenue }}</p>
+        <p>Total Orders: {{ total_orders }}</p>
+        <p>Total Restaurants: {{ total_restaurants }}</p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Admin Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<!-- 🔷 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+
+    <a class="navbar-brand fw-bold" href="#">
+        🍴 Restaurant Admin
+    </a>
+
+    <div class="ms-auto">
+        <a href="{% url 'logout' %}"
+           class="btn btn-danger btn-sm">
+            Logout
+        </a>
+    </div>
+
+</nav>
+
+
+<div class="container py-5">
+
+<h2 class="fw-bold mb-4">
+Restaurant Admin Dashboard
+</h2>
+
+
+<!-- 🔶 QUICK STATS -->
+<div class="row g-4 mb-5">
+
+
+<!-- Total Orders -->
+<div class="col-md-3">
+<div class="card shadow-sm text-center p-3">
+
+<h5>Total Orders</h5>
+
+<h3 class="text-primary">
+{{ total_orders|default:"0" }}
+</h3>
+
+</div>
+</div>
+
+
+<!-- Sales -->
+<div class="col-md-3">
+<div class="card shadow-sm text-center p-3">
+
+<h5>Today's Sales</h5>
+
+<h3 class="text-success">
+
+₹ {{ daily_sales|default:"0" }}
+
+</h3>
+
+</div>
+</div>
+
+
+<!-- Active Tables -->
+<div class="col-md-3">
+<div class="card shadow-sm text-center p-3">
+
+<h5>Active Tables</h5>
+
+<h3 class="text-warning">
+
+{{ active_tables|default:"0" }}
+
+</h3>
+
+</div>
+</div>
+
+
+<!-- Waiting List -->
+<div class="col-md-3">
+<div class="card shadow-sm text-center p-3">
+
+<h5>Waiting List</h5>
+
+<h3 class="text-danger">
+
+{{ waiting_list|default:"0" }}
+
+</h3>
+
+</div>
+</div>
+
+
+<!-- ✅ NEW OCCUPANCY CARD -->
+<div class="col-md-3">
+<div class="card shadow-sm text-center p-3">
+
+<h5>📊 Table Occupancy</h5>
+
+<h4 id="occupancyPercent"
+    class="text-primary">
+
+0% Occupied
+
+</h4>
+
+</div>
+</div>
+
+
+</div>
+
+
+<!-- 🔶 ACTION CARDS -->
+<div class="row g-4">
+
+
+<!-- MENU -->
+<div class="col-md-4">
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+🍽 Manage Menu
+</h5>
+
+<p class="text-muted">
+
+Add, edit or remove food items.
+
+</p>
+
+<a href="{% url 'menu' restaurant.id %}"
+class="btn btn-primary">
+
+Manage Menu
+
+</a>
+
+</div>
+</div>
+
+
+<!-- ORDERS -->
+<div class="col-md-4">
+
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+📦 Orders
+</h5>
+
+<p class="text-muted">
+
+View and manage customer orders.
+
+</p>
+
+<a href="/orders/" class="btn btn-success">
+View Orders
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- SALES -->
+<div class="col-md-4">
+
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+📊 Sales Analytics
+</h5>
+
+<p class="text-muted">
+
+Daily, weekly, monthly reports.
+
+</p>
+
+<a href="{% url 'sales_reports' restaurant.id %}""
+
+class="btn btn-warning w-100">
+
+View Reports
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- TABLES -->
+<div class="col-md-4">
+
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+🪑 Manage Tables
+</h5>
+
+<p class="text-muted">
+
+Live table map and reservations.
+
+</p>
+
+<a href="{% url 'manage_restaurant_tables' restaurant.id %}"
+class="btn btn-dark w-100">
+
+View Tables
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- RESERVATIONS -->
+<div class="col-md-4">
+
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+📅 Reservations
+</h5>
+
+<p class="text-muted">
+
+View all table bookings.
+
+</p>
+
+<a href="{% url 'view_reservations' restaurant.id %}"
+class="btn btn-info w-100">
+
+View Reservations
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- WAITING LIST -->
+<div class="col-md-4">
+
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+⏳ Waiting List
+</h5>
+
+<p class="text-muted">
+
+Manage customers in queue.
+
+</p>
+
+<!-- ✅ FIXED URL -->
+<a href="{% url 'waiting_list' restaurant.id %}"
+class="btn btn-secondary w-100">
+
+Manage Queue
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- SETTINGS -->
+<div class="col-md-4">
+
+<div class="card shadow-lg p-4 text-center h-100">
+
+<h5 class="fw-bold">
+
+⚙ Restaurant Settings
+
+</h5>
+
+<p class="text-muted">
+
+Update restaurant details.
+
+</p>
+
+<a href="{% url 'restaurant_settings' %}"
+class="btn btn-secondary">
+
+Settings
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- ✅ OCCUPANCY AUTO REFRESH -->
+<script>
+
+function fetchStats(){
+
+fetch("{% url 'dashboard_stats' restaurant.id %}")
+
+.then(response => response.json())
+
+.then(data => {
+
+document.getElementById(
+"occupancyPercent"
+).innerText =
+data.occupancy_percentage + "% Occupied";
+
+})
+
+.catch(error => console.log(error));
+
+}
+
+
+// Refresh every 5 sec
+setInterval(fetchStats,5000);
+
+
+// Load immediately
+fetchStats();
+
+</script>
+
+
+</body>
+</html>

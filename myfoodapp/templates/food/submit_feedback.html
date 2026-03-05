@@ -1,0 +1,61 @@
+{% extends 'food/base.html' %}
+{% load static %}
+{% block content_block %}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Leave Your Feedback</h2>
+
+    <div class="card p-4 shadow">
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label>Name</label>
+                {{ form.name }}
+            </div>
+
+            <!-- Star rating -->
+            <div class="mb-3">
+                <label>Rating</label>
+                <div class="star-rating">
+                    {% for i in "54321" %}
+                        <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}">
+                        <label for="star{{ i }}">★</label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div class="mb-3">
+                <label>Review</label>
+                {{ form.message }}
+            </div>
+
+            <button class="btn btn-primary">Submit Feedback</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.star-rating {
+    direction: rtl;
+    font-size: 30px;
+}
+.star-rating input {
+    display: none;
+}
+.star-rating label {
+    color: #ccc;
+    cursor: pointer;
+}
+.star-rating input:checked ~ label {
+    color: gold;
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold;
+}
+</style>
+
+{% endblock %}

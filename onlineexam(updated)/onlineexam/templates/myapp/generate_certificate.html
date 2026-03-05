@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{%extends "myapp/base.html"%}
+{% block content_block %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4 class="text-center">Certificate of Completion</h4>
+        </div>
+        <div class="card-body text-center">
+            <h2>Congratulations, {{ user.username }}!</h2>
+            <p>You have successfully completed the exam.</p>
+            <p>Your score: {{ score }}%</p>
+            <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

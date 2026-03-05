@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<div class="container mt-4">
+<h3>Upload Question Paper PDF – {{ exam.title }}</h3>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="mb-3">
+<input type="file" name="pdf_file" class="form-control" accept=".pdf" required>
+</div>
+
+<button class="btn btn-success">Upload PDF</button>
+<a href="{% url 'admin_panel' %}" class="btn btn-secondary">Back</a>
+
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block content_block %}
+<div class="container">
+    <h2>Delete Exam</h2>
+    <p>Are you sure you want to delete the exam "{{ exam.title }}"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'view_exam' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{%endblock%}

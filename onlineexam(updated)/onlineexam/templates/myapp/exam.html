@@ -1,0 +1,117 @@
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<h2>{{ exam.title }}</h2>
+
+<!-- TIMER -->
+<div id="timer" style="font-size:24px;color:red;">30.00</div>
+
+<!-- WEBCAM -->
+<video id="video" autoplay muted
+style="position:fixed;right:10px;top:10px;width:220px;border:2px solid black;">
+</video>
+
+<form method="POST" action="{% url 'submit_exam' exam.id %}">
+{% csrf_token %}
+
+<b>Questions:</b>
+{% for q in questions %}
+<button type="button" onclick="goto('{{ q.id }}')">{{ forloop.counter }}</button>
+{% endfor %}
+<hr>
+
+{% for q in questions %}
+<div id="q{{ q.id }}" style="margin-bottom:25px;">
+<p><b>{{ forloop.counter }}. {{ q.text }}</b></p>
+
+<label><input type="radio" name="{{ q.id }}" value="A"> {{ q.option1 }}</label><br>
+<label><input type="radio" name="{{ q.id }}" value="B"> {{ q.option2 }}</label><br>
+<label><input type="radio" name="{{ q.id }}" value="C"> {{ q.option3 }}</label><br>
+<label><input type="radio" name="{{ q.id }}" value="D"> {{ q.option4 }}</label><br>
+</div>
+{% endfor %}
+
+<button style="padding:10px 20px;">Submit Exam</button>
+</form>
+
+<script>
+/* ================= TIMER (RELOAD SAFE) ================= */
+let time = {{ remaining_time }};   // comes from backend
+let submitted = false;
+
+updateTimer();
+
+setInterval(()=>{
+    if(submitted) return;
+
+    time--;
+    updateTimer();
+
+    if(time <= 0){
+        submitted = true;
+        alert("Time finished");
+        document.forms[0].submit();
+    }
+},1000);
+
+function updateTimer(){
+    let m = String(Math.floor(time/60)).padStart(2,'0');
+    let s = String(time%60).padStart(2,'0');
+    document.getElementById("timer").innerHTML = m + ":" + s;
+}
+
+/* ================= PREVENT TAB SWITCH ================= */
+document.addEventListener("visibilitychange",()=>{
+    if(document.hidden){
+        alert("Tab switch detected. Submitting exam.");
+        document.forms[0].submit();
+    }
+});
+
+/* ================= PREVENT REFRESH ================= */
+window.onbeforeunload = function(){
+    if(!submitted){
+        return "Exam running!";
+    }
+};
+
+/* ================= BLOCK KEYS ================= */
+document.addEventListener("keydown",function(e){
+    if(e.keyCode==123) e.preventDefault(); // F12
+    if(e.ctrlKey && e.shiftKey && e.key==="I") e.preventDefault();
+    if(e.ctrlKey && e.key==="u") e.preventDefault();
+    if(e.ctrlKey && e.key==="r") e.preventDefault();
+    if(e.keyCode==116) e.preventDefault(); // F5
+});
+
+/* ================= RIGHT CLICK BLOCK ================= */
+document.addEventListener("contextmenu", e=>e.preventDefault());
+
+/* ================= FULLSCREEN ================= */
+function startFullscreen(){
+    let elem = document.documentElement;
+    if(elem.requestFullscreen){
+        elem.requestFullscreen();
+    }
+}
+startFullscreen();
+
+document.addEventListener("fullscreenchange", ()=>{
+    if(!document.fullscreenElement){
+        alert("Exited fullscreen. Submitting exam.");
+        document.forms[0].submit();
+    }
+});
+
+/* ================= WEBCAM ================= */
+navigator.mediaDevices.getUserMedia({video:true})
+.then(stream=>{
+    document.getElementById("video").srcObject = stream;
+})
+.catch(()=>{
+    alert("Camera required");
+    document.forms[0].submit();
+});
+</script>
+
+{% endblock %}

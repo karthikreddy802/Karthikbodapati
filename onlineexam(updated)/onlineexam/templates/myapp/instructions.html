@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-dark text-white text-center">
+            <h4>Exam Instructions</h4>
+        </div>
+
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Join before exam start</li>
+                <li class="list-group-item">Do not refresh page</li>
+                <li class="list-group-item">No tab switching</li>
+                <li class="list-group-item">No cheating</li>
+                <li class="list-group-item">Ensure stable internet</li>
+                <li class="list-group-item">Use recommended browser and you are under camera surveillance</li>
+                <li class="list-group-item">Submit before timer ends</li>
+            </ul>
+
+            <div class="text-center mt-4">
+    {% if exams %}
+        <a href="{% url 'exam' exams.0.id %}" class="btn btn-primary">
+            Start Exam
+        </a>
+    {% else %}
+        <p class="text-danger">No exams available</p>
+    {% endif %}
+</div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

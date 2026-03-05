@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<div class="container mt-4">
+<h3>Add Question – {{ exam.title }}</h3>
+
+<form method="post">
+{% csrf_token %}
+
+<div class="mb-3">
+<label>Question</label>
+<textarea name="text" class="form-control" required></textarea>
+</div>
+
+<div class="mb-3">
+<label>Option 1</label>
+<input type="text" name="option1" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Option 2</label>
+<input type="text" name="option2" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Option 3</label>
+<input type="text" name="option3" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Option 4</label>
+<input type="text" name="option4" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Correct Answer</label>
+<select name="correct_answer" class="form-control" required>
+<option value="">-- Select Correct Option --</option>
+<option value="{{ request.POST.option1 }}">Option 1</option>
+<option value="{{ request.POST.option2 }}">Option 2</option>
+<option value="{{ request.POST.option3 }}">Option 3</option>
+<option value="{{ request.POST.option4 }}">Option 4</option>
+</select>
+</div>
+
+<button class="btn btn-success">Save Question</button>
+<a href="{% url 'admin_panel' %}" class="btn btn-secondary">Back</a>
+
+</form>
+</div>
+
+{% endblock %}

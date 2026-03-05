@@ -1,0 +1,44 @@
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<div class="container mt-5 text-center">
+
+    <div class="card shadow p-4">
+        <h2 class="text-success">Certificate Verified </h2>
+        <h3 style="color:green;">This certificate is authentic and issued by SSSIT</h3>
+        <h4 class="mt-3">Institution Name</h4>
+        <p><strong>SSSIT Institute of Technology</strong></p>
+
+        <hr>
+
+        <h5>Student Name:</h5>
+        <p>{{ result.username }}</p>
+
+        <h5>Exam:</h5>
+        <p>{{ result.exam.title }}</p>
+
+        <h5>Score:</h5>
+        <p>{{ result.score }} / {{ result.total }} ({{ result.percentage }}%)</p>
+
+        <h5>Issued On:</h5>
+        <p>{{ result.submitted_at }}</p>
+
+        <hr>
+
+        <h5>Certificate Designed By:</h5>
+        <p>
+            Karthik Reddy Bodapati <br>
+            Samba Siva Rao Nakka<br>
+            Bhanu <br>
+            Yamini <br>
+            SSSIT Development Team
+        </p>
+
+        <p class="text-muted mt-3">
+            Certificate ID: {{ result.certificate_id }}
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

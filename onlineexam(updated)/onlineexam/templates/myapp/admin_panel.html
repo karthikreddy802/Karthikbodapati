@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+{% extends 'myapp/base.html' %}
+{% block content_block %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Admin Dashboard</h2>
+    <a href="{% url 'admin_logout' %}" class="btn btn-danger">Logout</a>
+</div>
+
+
+<!-- STATS CARDS -->
+<div class="row text-center mb-4">
+
+<div class="col-md-3">
+<div class="card bg-primary text-white">
+<div class="card-body">
+<h4>{{ total_students }}</h4>
+<p>Total Students</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card bg-success text-white">
+<div class="card-body">
+<h4>{{ total_exams }}</h4>
+<p>Total Exams</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card bg-warning text-white">
+<div class="card-body">
+<h4>{{ avg_score }}%</h4>
+<p>Average Score</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card bg-dark text-white">
+<div class="card-body">
+<h4>{{ total_attempts }}</h4>
+<p>Total Attempts</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="row mb-4">
+
+<div class="col-md-6">
+<div class="card">
+<div class="card-body">
+<h5>Pass Rate</h5>
+<h3>{{ pass_rate }}%</h3>
+</div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="card">
+<div class="card-body">
+<h5>Top Scorer</h5>
+<h4>
+{% if top_scorer %}
+{{ top_scorer }}
+{% else %}
+No attempts yet
+{% endif %}
+</h4>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<hr>
+
+<h3>Manage Exams</h3>
+
+<a href="{% url 'add_exam' %}" class="btn btn-success mb-3">Add Exam</a>
+
+
+
+
+<table class="table table-bordered">
+<tr>
+<th>Exam</th>
+<th>Actions</th>
+</tr>
+
+{% for exam in exams %}
+<tr>
+<td>{{ exam.title }}</td>
+
+<td>
+
+    <a href="{% url 'update_exam' exam.id %}" class="btn btn-primary btn-sm">Edit</a>
+
+    <a href="{% url 'add_question' exam.id %}" class="btn btn-info btn-sm">Add Questions</a>
+
+    <a href="{% url 'delete_exam' exam.id %}" class="btn btn-danger btn-sm">Delete</a>
+
+<a href="{% url 'upload_pdf' exam.id %}" class="btn btn-warning btn-sm">Upload PDF</a>
+
+<a href="{% url 'convert_pdf' exam.id %}" class="btn btn-dark btn-sm">
+Convert PDF
+</a>
+
+
+{% if exam.pdf_file %}
+<a href="{{ exam.pdf_file.url }}" target="_blank" class="btn btn-info btn-sm">
+View PDF
+</a>
+
+{% else %}
+<span class="text-muted">No PDF</span>
+{% endif %}
+
+</td>
+</tr>
+{% endfor %}
+</table>
+
+<hr>
+
+<div id="pdfViewer" style="display:none;">
+<h4>PDF Preview</h4>
+<iframe id="pdfFrame" width="100%" height="600px"></iframe>
+<button class="btn btn-secondary mt-2" onclick="hidePDF()">Close</button>
+</div>
+
+<script>
+function showPDF(url){
+    document.getElementById("pdfViewer").style.display="block";
+    document.getElementById("pdfFrame").src=url;
+}
+function hidePDF(){
+    document.getElementById("pdfViewer").style.display="none";
+}
+</script>
+
+<hr>
+
+<h3 class="mt-5">Student Results</h3>
+
+<table class="table table-striped mt-3">
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Exam</th>
+<th>Score</th>
+<th>%</th>
+<th>Date</th>
+</tr>
+
+{% for r in results %}
+<tr>
+<td>{{ r.username }}</td>
+<td>{{ r.email }}</td>
+<td>{{ r.exam.title }}</td>
+<td>{{ r.score }}/{{ r.total }}</td>
+<td>{{ r.percentage }}%</td>
+<td>{{ r.submitted_at }}</td>
+</tr>
+
+{% endfor %}
+</table>
+
+</div>
+
+{% endblock %}

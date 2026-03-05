@@ -1,0 +1,179 @@
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<style>
+
+/* HERO SECTION */
+.hero {
+    height: 90vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f")
+                no-repeat center center/cover;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 50px;
+    font-weight: bold;
+    animation: slideDown 1.2s ease;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-top: 15px;
+    animation: slideUp 1.5s ease;
+}
+
+@keyframes slideDown {
+    from {opacity:0; transform:translateY(-40px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes slideUp {
+    from {opacity:0; transform:translateY(40px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+.btn-custom {
+    margin-top: 20px;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+/* FEATURE CARDS */
+.feature-card {
+    border-radius: 15px;
+    transition: 0.4s;
+    padding: 25px;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    background: #007bff;
+    color: white;
+}
+
+/* EXAM CARDS */
+.exam-card {
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.exam-card:hover {
+    transform: scale(1.05);
+}
+
+/* STATS */
+.stats {
+    background: #f8f9fa;
+    padding: 50px 0;
+}
+
+.stats h2 {
+    font-weight: bold;
+    color: #007bff;
+}
+
+</style>
+
+<!-- HERO SECTION -->
+<div class="hero">
+    <div class="container">
+        <h1>Online Exam Portal</h1>
+        <p>Secure • Smart • Fast Examination System</p>
+
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="container mt-5">
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="card shadow feature-card">
+                <h4>📝 Online Tests</h4>
+                <p>Take exams anytime, anywhere securely.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow feature-card">
+                <h4>📊 Instant Results</h4>
+                <p>Immediate score and performance analytics.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow feature-card">
+                <h4>🔐 Secure System</h4>
+                <p>Protected admin and student authentication.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AVAILABLE EXAMS -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Available Exams</h2>
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card shadow p-3 exam-card">
+                <h5>Python Exam</h5>
+                <p>MCQ test for Python programming </p>
+                <a href="#" class="btn btn-success btn-sm">Start</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-3 exam-card">
+                <h5>Java Exam</h5>
+                <p>Core Java and OOP based assessment.</p>
+                <a href="#" class="btn btn-warning btn-sm">Start</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-3 exam-card">
+                <h5>.NET Exam</h5>
+                <p>C# and .NET framework evaluation.</p>
+                <a href="#" class="btn btn-primary btn-sm">Start</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- STATS -->
+<div class="stats mt-5">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>1000+</h2>
+                <p>Students</p>
+            </div>
+            <div class="col-md-3">
+                <h2>75+</h2>
+                <p>Exams</p>
+            </div>
+            <div class="col-md-3">
+                <h2>98%</h2>
+                <p>Success Rate</p>
+            </div>
+            <div class="col-md-3">
+                <h2>24/7</h2>
+                <p>Support</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    © 2026 Online Exam Portal | Developed by Team 3
+</footer>
+
+{% endblock %}

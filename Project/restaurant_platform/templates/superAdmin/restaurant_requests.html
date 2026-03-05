@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="mb-4">✅ Restaurant Request Approvals</h2>
+
+    <div class="card p-4 shadow-sm">
+        {% if pending_restaurants %}
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Owner</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for restaurant in pending_restaurants %}
+                        <tr>
+                            <td>{{ restaurant.name }}</td>
+                            <td>{{ restaurant.location|default:"-" }}</td>
+                            <td>
+                                {% if restaurant.owner %}
+                                    {{ restaurant.owner.username }} ({{ restaurant.owner.email }})
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            </td>
+                            <td>
+                                <form method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="restaurant_id" value="{{ restaurant.id }}">
+                                    <input type="hidden" name="action" value="approve">
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        Approve
+                                    </button>
+                                </form>
+
+                                <form method="post" class="d-inline ms-1">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="restaurant_id" value="{{ restaurant.id }}">
+                                    <input type="hidden" name="action" value="reject">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Reject
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="mb-0">There are currently no pending restaurant requests.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block content_block %}
+<div class="container">
+    <h2 class="my-4">Update Exam</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Exam Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ exam.title }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Exam</button>
+    </form>
+</div>
+{%endblock%}

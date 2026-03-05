@@ -1,0 +1,79 @@
+{% extends "food/base.html" %}
+{% load static %}
+
+{% block content_block %}
+<div class="container py-5">
+
+    <h2 class="text-center fw-bold mb-4">Your Cart</h2>
+
+    {% if items %}
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% for item in items %}
+<tr>
+    <td class="fw-semibold">
+        {{ item.name }}
+    </td>
+
+    <td>
+        ₹{{ item.price }}
+    </td>
+
+    <td>
+        {{ item.quantity }}
+    </td>
+
+    <td class="fw-bold">
+        ₹{{ item.total_price }}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="4" class="text-center text-muted py-4">
+        Your cart is empty ☕
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+
+            </table>
+        </div>
+
+        <!-- Grand total -->
+        <div class="d-flex justify-content-end mt-4">
+           <h4 class="fw-bold text-end">
+    Grand Total: ₹{{ total }}
+</h4>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'cafe' %}" class="btn btn-outline-secondary">
+                Continue Shopping
+            </a>
+
+            <a href="#" class="btn btn-success">
+                Proceed to Checkout
+            </a>
+        </div>
+
+    {% else %}
+        <div class="text-center">
+            <p class="fs-5 text-muted">Your cart is empty 😔</p>
+            <a href="{% url 'cafe' %}" class="btn btn-warning mt-3">
+                Go to Menu
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

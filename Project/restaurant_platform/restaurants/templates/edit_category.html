@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+</head>
+<body>
+    <div class="container mt-5">
+    <h3>Edit Category</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" value="{{ category.name }}" class="form-control mb-3">
+        <button class="btn btn-primary">Update</button>
+        <a href="{% url 'manage_menu' restaurant.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+    
+</body>
+</html>

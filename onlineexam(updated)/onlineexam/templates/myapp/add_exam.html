@@ -1,0 +1,37 @@
+{% extends "myapp/base.html" %}
+{% block content_block %}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h4>Add New Exam</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Exam Title</label>
+                    <input type="text" name="title" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Timer</label>
+                    <textarea name="description" class="form-control" required></textarea>
+                </div>
+
+                <button class="btn btn-success">
+                    Create Exam
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

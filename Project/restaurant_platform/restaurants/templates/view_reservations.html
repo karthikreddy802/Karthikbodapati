@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations - {{ restaurant.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .reservation-card {
+            transition: 0.2s;
+        }
+        .reservation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .badge-date {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">📅 Table Reservations</h2>
+        <a href="{% url 'restaurant_dashboard' restaurant.id %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+    </div>
+    <p class="text-muted mb-4">{{ restaurant.name }} - View all customer table bookings</p>
+
+    <!-- Filter Tabs -->
+    <ul class="nav nav-pills mb-4">
+        <li class="nav-item">
+            <a class="nav-link {% if filter_type == 'all' %}active{% endif %}" href="?filter=all">All Reservations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if filter_type == 'today' %}active{% endif %}" href="?filter=today">Today</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if filter_type == 'upcoming' %}active{% endif %}" href="?filter=upcoming">Upcoming</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if filter_type == 'past' %}active{% endif %}" href="?filter=past">Past</a>
+        </li>
+    </ul>
+
+    <!-- Reservations List -->
+    {% if reservations %}
+        <div class="row g-3">
+            {% for reservation in reservations %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card reservation-card shadow-sm p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="mb-1">Table {{ reservation.table.table_number }}</h5>
+                                <small class="text-muted">Capacity: {{ reservation.table.capacity }} guests</small>
+                            </div>
+                            {% if reservation.date == today %}
+                                <span class="badge bg-warning text-dark">Today</span>
+                            {% elif reservation.date > today %}
+                                <span class="badge bg-success">Upcoming</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Past</span>
+                            {% endif %}
+                        </div>
+
+                        <hr class="my-2">
+
+                        <div class="mb-2">
+                            <strong>Customer:</strong> {{ reservation.customer.get_full_name|default:reservation.customer.username }}
+                            <br>
+                            <small class="text-muted">{{ reservation.customer.email|default:"—" }}</small>
+                        </div>
+
+                        <div class="mb-2">
+                            <strong>Date:</strong> 
+                            <span class="badge-date">{{ reservation.date|date:"D, M d, Y" }}</span>
+                        </div>
+
+                        <div class="mb-2">
+                            <strong>Time Slot:</strong> 
+                            <span class="badge bg-primary">{{ reservation.slot_label }}</span>
+                        </div>
+
+                        <div class="mb-2">
+                            <strong>Guests:</strong> {{ reservation.guest_count }} {{ reservation.guest_count|pluralize:"person,people" }}
+                        </div>
+
+                        <div class="text-muted small">
+                            Booked: {{ reservation.created_at|date:"M d, Y g:i A" }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card shadow-sm p-5 text-center">
+            <h5 class="text-muted">No reservations found</h5>
+            <p class="text-muted mb-0">
+                {% if filter_type == 'today' %}
+                    No reservations for today.
+                {% elif filter_type == 'upcoming' %}
+                    No upcoming reservations.
+                {% elif filter_type == 'past' %}
+                    No past reservations.
+                {% else %}
+                    No reservations yet. Customers can book tables from the restaurant detail page.
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

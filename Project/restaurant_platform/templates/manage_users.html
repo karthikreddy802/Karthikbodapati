@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="mb-4">👥 Manage Users</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+       <tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+
+        <td>
+            {% if user.role == "superadmin" %}
+                <span class="badge bg-danger">Super Admin</span>
+            {% elif user.role == "restaurant_admin" %}
+                <span class="badge bg-primary">Restaurant Admin</span>
+            {% else %}
+                <span class="badge bg-secondary">Customer</span>
+            {% endif %}
+        </td>
+
+        <td>
+            {% if user.is_active %}
+                <span class="badge bg-success">Active</span>
+            {% else %}
+                <span class="badge bg-danger">Blocked</span>
+            {% endif %}
+        </td>
+
+        <td>
+            {% if user.role != "superadmin" %}
+                <a href="{% url 'toggle_user' user.id %}"
+                   class="btn btn-sm btn-warning">
+                    {% if user.is_active %}Deactivate{% else %}Activate{% endif %}
+                </a>
+            {% else %}
+                <span class="text-muted">Protected</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" class="text-center">No users found</td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+    </table>
+   
+</div>
+
+
+{% endblock %}
